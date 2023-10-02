@@ -1,0 +1,10 @@
+{% extends 'costumbre/base.html' %} 
+{% block content %} 
+<form method="POST" enctype="multipart/form-data">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <div class="form-group has-error">
+      <label class="control-label" for="inputError1"></label>
+      <input type="submit" class="btn btn-primary" id="inputError1">
+   </div>
+{% endblock %} 

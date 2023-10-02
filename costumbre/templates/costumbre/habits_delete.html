@@ -1,0 +1,21 @@
+{% extends 'costumbre/base.html' %} 
+{% block content %} 
+
+<div class="col-12">
+   <div class="row">
+      <div class="col-6">
+         <div class="card">
+            <div class="card-body">
+               <form method="post">
+                  {% csrf_token %}
+                  <p>Хотите удалить привычку?: {{ object.sign_of_a_pleasant_habit }}</p>
+                  <button type="submit" class="btn btn-danger">Подтвердить</button>
+                  <a href="/costumbre/" class="btn btn-warning">Отмена</a>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %} 

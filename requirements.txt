@@ -1,0 +1,7 @@
+django
+requests
+psycopg2
+schedule
+Pillow
+apscheduler
+python-dateutil

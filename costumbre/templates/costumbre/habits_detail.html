@@ -1,0 +1,26 @@
+{% extends 'costumbre/base.html' %} 
+{% block content %} 
+<div class="col-md-4">
+   <div class="card mb-4 box-shadow">
+     {% endif %} 
+        <div class="card-body">
+       <p class="card-text">user: {{object.user}}</p> 
+       <p class="card-text">Место: {{object.place}}</p>
+       <p class="card-text">Дата: {{object.datetime}}</p>
+       <p class="card-text">Действие: {{object.action}}</p> 
+       <p class="card-text">Приятная привычка: {{object.sign_of_a_pleasant_habit}}</p>
+       <p class="card-text">Привычка которая связана с другой: {{object.related_Habit}}</p> 
+       <p class="card-text">Периодичность: {{object.periodicity}}</p>
+       <p class="card-text">Вознаграждение: {{object.reward}}</p>
+       <p class="card-text">Время на выполнение: {{object.time_to_complete}}</p> 
+       <p class="card-text">Доступно ли всем?: {{object.is_active}}</p>
+       <div class="d-flex justify-content-between align-items-center">
+         <div class="btn-group">
+           <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/costumbre/update/{{ object.pk }}'">Edit</button>
+           <button type="button" class="btn btn-danger" onclick="window.location.href='/costumbre/delete/{{ object.pk }}'">Delete</button>
+         </div>
+       </div>
+     </div>
+   </div> 
+ </div>
+{% endblock %} 
