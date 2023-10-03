@@ -5,3 +5,4 @@ schedule
 Pillow
 apscheduler
 python-dateutil
+djangorestframework

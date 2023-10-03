@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'costumbre',
-    'users,'
+    'users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -76,13 +77,6 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -106,14 +100,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -136,10 +127,15 @@ DATABASES = {
 
     }
 }
+LANGUAGE_CODE = 'ru-ru'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/costumbre/'
+LOGIN_URL = '/users/login/'
+LOGOUT_REDIRECT_URL = '/users/login/'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (
