@@ -40,3 +40,32 @@ class RelatedHabitorReward:
          raise ValidationError(
             f'Можно заполнить только одно из полей: {self.related_field} или {self.reward_field}'
          )
+
+class Limitdays:
+   def __init__(self, field_name, max_days):
+      self.field_name = field_name
+      self.max_days = max_days
+
+   def __call__(self, data):
+      field_name = data.get(self.field_name)
+      print(self.max_days)
+      if field_name > self.max_days:
+         raise ValidationError(
+            f'Этот параметр --> {self.field_name}:{field_name} <-- не должен быть больше {self.max_days}'
+         )
+      
+class LimitHabits:
+   def __init__(self, field_name_1, field_name_2, field_name_3):
+      self.field_name_1 = field_name_1
+      self.field_name_2 = field_name_2
+      self.field_name_3 = field_name_3
+
+   def __call__(self, data):
+      field_name_1 = data.get(self.field_name_1)
+      field_name_2 = data.get(self.field_name_2)
+      field_name_3 = data.get(self.field_name_3)
+
+      if field_name_1 and (field_name_2 or field_name_3):
+         raise ValidationError(
+            f'Должно быть либо:{self.field_name_1}-{field_name_1}, либо что-то из этого {self.field_name_2}, {self.field_name_3}'
+         )
