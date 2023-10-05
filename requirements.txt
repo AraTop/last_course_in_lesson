@@ -6,3 +6,6 @@ Pillow
 apscheduler
 python-dateutil
 djangorestframework
+python-telegram-bot
+django-celery-beat
+celery

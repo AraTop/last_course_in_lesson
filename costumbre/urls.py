@@ -7,4 +7,5 @@ urlpatterns = [
    path("create/", views.HabitsCreateView.as_view()),
    path("delete/<int:pk>/", views.HabitsDeleteView.as_view()),
    path("update/<int:pk>/", views.HabitsUpdateView.as_view()),
+   path('send_message/', views.SendMessageView.as_view(), name='send_message'),
 ]     

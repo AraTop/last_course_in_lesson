@@ -12,8 +12,8 @@ class Habits(models.Model):
    related_Habit = models.CharField(max_length=150, verbose_name='Привычка которая связана с другой, но не для приятных', **NULLABLE)
    periodicity = models.IntegerField(verbose_name='Периодичность выполнения привычки для напоминания в днях.')
    reward = models.CharField(max_length=250, verbose_name='Вознаграждение', **NULLABLE)
-   time_to_complete = models.TimeField(verbose_name='Время на выполнение')
-   is_active = models.BooleanField(verbose_name='Доступно ли всем?')
+   time_complete = models.IntegerField(verbose_name='Время на выполнение в минутах')
+   is_active = models.BooleanField(verbose_name='Доступно ли всем')
    
    def __str__(self):
       return f'{self.user} {self.action} {self.datetime} {self.place}' 

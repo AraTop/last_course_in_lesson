@@ -10,19 +10,10 @@ class LimitTime:
       self.max_seconds = max_seconds
 
    def __call__(self, attrs):
-      time_to_complete = attrs.get(self.field_name)
-      now_time = timezone.now() 
-      three_hours = timedelta(hours=3)
-      current_time = now_time + three_hours
+      time_complete = attrs.get(self.field_name)
+      time_complete_seconds = time_complete * 60
 
-      hours = current_time.hour
-      minutes = current_time.minute
-      seconds = current_time.second
-
-      current_time_seconds = (hours * 3600) + (minutes * 60) + seconds
-      time_to_complete_seconds = (time_to_complete.hour * 3600) + (time_to_complete.minute * 60) + time_to_complete.second
-
-      if time_to_complete_seconds - current_time_seconds > self.max_seconds:
+      if time_complete_seconds > self.max_seconds:
          raise ValidationError(
             f'Поле "{self.field_name}" не может быть больше {self.max_seconds} секунд.'
          )
