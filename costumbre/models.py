@@ -14,7 +14,8 @@ class Habits(models.Model):
    reward = models.CharField(max_length=250, verbose_name='Вознаграждение', **NULLABLE)
    time_complete = models.IntegerField(verbose_name='Время на выполнение в минутах')
    is_active = models.BooleanField(verbose_name='Доступно ли всем')
-   
+   next_repost = models.DateField(verbose_name='Дата следуйщей отправки, этот параметр автоматический , не изменять!!!', **NULLABLE)
+
    def __str__(self):
       return f'{self.user} {self.action} {self.datetime} {self.place}' 
    

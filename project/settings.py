@@ -148,13 +148,14 @@ SESSION_COOKIE_AGE = 54800
 
 TOKEN = '6662755869:AAEbNeWmoQV2g-5MZL3l5zowS08Giv32g0o'
 PROXY_URL = 'https://t.me/Smart_Habbit_Bot'
-
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_TASK_TRACK_STARTED = True 
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379' 
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
         'task': 'costumbre.tasks.send_message_bot',  # Путь к задаче
-        'schedule': timedelta(days=1),
+        'schedule': timedelta(minutes=1),
     },
 }

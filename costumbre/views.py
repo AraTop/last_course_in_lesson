@@ -40,7 +40,6 @@ class SendMessageView(View):
       user = request.user
       chat_id = user.chat_id
       message = f"Здравствуйте {user.first_name}, пришло время выполнять привычки."
-
       delay_message_bot.delay(chat_id=chat_id, message=message)
 
       return HttpResponse('Message sent successfully.')
