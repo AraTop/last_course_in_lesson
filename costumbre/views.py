@@ -39,6 +39,9 @@ class SendMessageView(View):
    def get(self, request, *args, **kwargs):
       user = request.user
       chat_id = user.chat_id
+      if not chat_id:
+         return "error: chat_id"
+      
       message = f"Здравствуйте {user.first_name}, пришло время выполнять привычки."
       delay_message_bot.delay(chat_id=chat_id, message=message)
 

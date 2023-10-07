@@ -10,9 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 from pathlib import Path
-
+from celery.schedules import crontab
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -148,6 +147,7 @@ SESSION_COOKIE_AGE = 54800
 
 TOKEN = '6662755869:AAEbNeWmoQV2g-5MZL3l5zowS08Giv32g0o'
 PROXY_URL = 'https://t.me/Smart_Habbit_Bot'
+
 CELERY_TASK_TRACK_STARTED = True 
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379' 
@@ -156,6 +156,6 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
         'task': 'costumbre.tasks.send_message_bot',  # Путь к задаче
-        'schedule': timedelta(minutes=1),
+        'schedule': crontab(minute='*/1'),
     },
 }
