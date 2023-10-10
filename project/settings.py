@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from celery.schedules import crontab
+import os
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv(BASE_DIR / '.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'django_celery_beat',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -120,11 +125,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'last_course_in_lesson',
-        'USER': 'postgres',
-        'PASSWORD': 'Komaz5357abv',
-        'HOST': 'localhost',
-        'PORT': 5432
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT')
 
     }
 }
@@ -143,14 +148,14 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
 
-SESSION_COOKIE_AGE = 54800
+SESSION_COOKIE_AGE = int(os.getenv('SESSION_COOKIE_AGE'))
 
-TOKEN = '6662755869:AAEbNeWmoQV2g-5MZL3l5zowS08Giv32g0o'
+BOT_TOKEN = os.getenv('TOKEN')
 PROXY_URL = 'https://t.me/Smart_Habbit_Bot'
 
-CELERY_TASK_TRACK_STARTED = True 
+CELERY_TASK_TRACK_STARTED = True
 CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379' 
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
@@ -159,3 +164,14 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute='*/1'),
     },
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'https://read-and-write.example.com',
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",
+]

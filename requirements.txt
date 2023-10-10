@@ -6,7 +6,9 @@ Pillow
 apscheduler
 python-dateutil
 djangorestframework
-python-telegram-bot
+python_telegram_bot
 django-celery-beat
 celery
 redis
+python-dotenv
+django-cors-headers
