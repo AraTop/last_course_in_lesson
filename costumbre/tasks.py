@@ -1,6 +1,5 @@
 import datetime
 from celery import shared_task
-from django.urls import reverse
 import requests
 import telegram
 from costumbre.models import Habits

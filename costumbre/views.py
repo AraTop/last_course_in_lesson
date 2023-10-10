@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views import View
 from costumbre.models import Habits
 from costumbre.paginators import HabitsPaginator
 from costumbre.permissions import AuthorPermissionsMixin
@@ -42,10 +41,10 @@ class HabitsDetailView(generics.RetrieveAPIView):
 
 def SendMessageView(request, user_id, chat_id):
     user = User.objects.get(id=user_id)
-    
+
     if not user_id or not chat_id:
         return HttpResponse("error: user_id or chat_id is missing")
 
     text = f"Здравствуйте {user.first_name}, пришло время выполнять привычки."
     delay_message_bot.delay(chat_id=chat_id, message=text)
-    return HttpResponse('Message sent successfully.')   
+    return HttpResponse('Message sent successfully.')
