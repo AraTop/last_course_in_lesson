@@ -1,7 +1,4 @@
 # last_course_in_lesson
-docker:
-1. docker build -t hello .
-2. docker run --name test_cont -d -p 8000:8000 hello
 
 Что бы запустить нужно:
    1. открыть терминал
