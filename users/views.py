@@ -24,7 +24,7 @@ class RegisterView(CreateView):
     success_url = '/users/login/'
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name='dispatch')  
 class ProfileView(UpdateView):
     model = User
     form_class = UserProfileForm

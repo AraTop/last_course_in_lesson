@@ -154,9 +154,8 @@ BOT_TOKEN = os.getenv('TOKEN')
 PROXY_URL = 'https://t.me/Smart_Habbit_Bot'
 
 CELERY_TASK_TRACK_STARTED = True
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
