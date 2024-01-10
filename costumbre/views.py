@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import requests
 from costumbre.models import Habits
 from costumbre.paginators import HabitsPaginator
 from costumbre.permissions import AuthorPermissionsMixin
 from costumbre.serialization import HabitsSerializer
 from rest_framework import generics
-from costumbre.tasks import delay_message_bot
+from project import settings
 from users.models import User
 
 
@@ -45,6 +46,9 @@ def SendMessageView(request, user_id, chat_id):
     if not user_id or not chat_id:
         return HttpResponse("error: user_id or chat_id is missing")
 
-    text = f"Здравствуйте {user.first_name}, пришло время выполнять привычки."
-    delay_message_bot.delay(chat_id=chat_id, message=text)
+    habit = Habits.objects.filter(user_id=user.pk).first()
+    text = f"Здравствуйте {user.first_name}. Я буду {habit.action} в {habit.time_complete} в {habit.place}"
+    token = settings.BOT_TOKEN
+    url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}"
+    requests.get(url).json()
     return HttpResponse('Message sent successfully.')

@@ -1,7 +1,6 @@
 import datetime
 from celery import shared_task
 import requests
-import telegram
 from costumbre.models import Habits
 from project import settings
 from users.models import User
@@ -16,6 +15,9 @@ def send_message_bot():
 
     for user in users:
         chat_id = user.chat_id
+        if not chat_id:
+                continue
+        
         habits = Habits.objects.filter(user_id=user.pk)
 
         for habit in habits:
@@ -29,12 +31,7 @@ def send_message_bot():
             if not habit.next_repost == current_date:
                 continue
 
-            if not chat_id:
-                print("user")
-                continue
-
             if not time.hour == current_time.hour and time.minute == current_time.minute:
-                print("user")
                 continue
 
             user_id = user.pk
@@ -53,10 +50,13 @@ def send_message_bot():
 
 
 @shared_task
-def delay_message_bot(chat_id, message):
-    bot = telegram.Bot(token=settings.BOT_TOKEN)
-    try:
-        bot.send_message(chat_id=chat_id, text=message)
-        print(chat_id, message)
-    except Exception as e:
-        print(f"error: {e}")
+def test_bot():
+    users = User.objects.all().first()
+
+    for user in users:
+        chat_id = user.chat_id
+        habit = Habits.objects.filter(user_id=user.pk).first()
+        text = f"Здравствуйте {user.first_name}. Я буду {habit.action} в {habit.time_complete} в {habit.place}"
+        token = settings.BOT_TOKEN
+        url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}"
+        requests.get(url).json()

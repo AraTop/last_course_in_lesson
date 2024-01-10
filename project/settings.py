@@ -107,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 TIME_ZONE = 'Europe/Moscow'
+CELERY_TIMEZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -151,15 +152,17 @@ STATICFILES_DIRS = (
 SESSION_COOKIE_AGE = int(os.getenv('SESSION_COOKIE_AGE'))
 
 BOT_TOKEN = os.getenv('TOKEN')
-PROXY_URL = 'https://t.me/Smart_Habbit_Bot'
 
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'costumbre.tasks.send_message_bot',  # Путь к задаче
+        'task': 'costumbre.tasks.test_bot',  # Путь к задаче
         'schedule': crontab(minute='*/1'),
     },
 }
