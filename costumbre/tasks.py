@@ -51,12 +51,14 @@ def send_message_bot():
 
 @shared_task
 def test_bot():
-    users = User.objects.all().first()
+    users = User.objects.all()
 
     for user in users:
         chat_id = user.chat_id
         habit = Habits.objects.filter(user_id=user.pk).first()
-        text = f"Здравствуйте {user.first_name}. Я буду {habit.action} в {habit.time_complete} в {habit.place}"
-        token = settings.BOT_TOKEN
-        url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}"
-        requests.get(url).json()
+        if habit:
+
+            text = f"Здравствуйте {user.first_name}. Я буду {habit.action} в {habit.time_complete} в {habit.place}"
+            token = settings.BOT_TOKEN
+            url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={text}"
+            requests.get(url).json()
